@@ -1,0 +1,135 @@
+<?php
+
+namespace LoveThatFit\AdminBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+/**
+ * LoveThatFit\AdminBundle\Entity\UserSurvey
+ *
+ * @ORM\Table()
+ * @ORM\Entity 
+ */
+class UserSurvey
+{    
+  /**
+     * @ORM\ManyToOne(targetEntity="SurveyQuestion", inversedBy="UserSurvey")
+     * @ORM\JoinColumn(name="question_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+   protected $question;  
+   /**
+     * @ORM\ManyToOne(targetEntity="SurveyAnswer", inversedBy="UserSurvey")
+     * @ORM\JoinColumn(name="answer_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+   protected $answers;   
+   
+   /**
+     * @ORM\ManyToOne(targetEntity="LoveThatFit\UserBundle\Entity\User", inversedBy="UserSurvey")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+   protected $user;   
+   
+   
+   public function __construct()
+    {
+        $this->question = new ArrayCollection();
+        $this->answers = new ArrayCollection();
+        $this->user = new ArrayCollection();
+    }
+    
+    /**
+     * @var integer $id
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var string $survey
+     *
+     * @ORM\Column(name="survey", type="text")
+     */
+    private $survey;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set survey
+     *
+     * @param string $survey
+     * @return UserSurvey
+     */
+    public function setSurvey($survey)
+    {
+        $this->survey = $survey;
+    
+        return $this;
+    }
+
+    /**
+     * Get survey
+     *
+     * @return string 
+     */
+    public function getSurvey()
+    {
+        return $this->survey;
+    }
+
+    /**
+     * Set question
+     *
+     * @param LoveThatFit\AdminBundle\Entity\SurveyQuestion $question
+     * @return UserSurvey
+     */
+    public function setQuestion(\LoveThatFit\AdminBundle\Entity\SurveyQuestion $question = null)
+    {
+        $this->question = $question;
+    
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return LoveThatFit\AdminBundle\Entity\SurveyQuestion 
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+
+    /**
+     * Set answers
+     *
+     * @param LoveThatFit\AdminBundle\Entity\SurveyAnswer $answers
+     * @return UserSurvey
+     */
+    public function setAnswers(\LoveThatFit\AdminBundle\Entity\SurveyAnswer $answers = null)
+    {
+        $this->answers = $answers;
+    
+        return $this;
+    }
+
+    /**
+     * Get answers
+     *
+     * @return LoveThatFit\AdminBundle\Entity\SurveyAnswer 
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+}
